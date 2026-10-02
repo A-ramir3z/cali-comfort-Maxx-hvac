@@ -1,3 +1,7 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+
 const services = [
   {
     title: "AC Repair & Service",
@@ -29,6 +33,7 @@ const benefits = [
 ];
 
 export default function Home() {
+  const [submitted, setSubmitted] = useState(false);
   return (
     <main className="min-h-screen bg-white text-slate-900">
       {/* Navigation */}
@@ -285,39 +290,226 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="contact" className="bg-sky-500 py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-100">
-            Need Service?
+      {/* Contact / Service Request */}
+<section id="contact" className="bg-sky-500 py-20">
+  <div className="mx-auto max-w-6xl px-6 lg:px-8">
+    <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+      
+      {/* Contact Information */}
+      <div className="pt-4">
+        <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-100">
+          Need Service?
+        </p>
+
+        <h2 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          Let&apos;s keep your home comfortable.
+        </h2>
+
+        <p className="mt-6 max-w-xl text-lg leading-8 text-sky-50">
+          Tell us a little about what your home needs, and Maxx Cooling
+          Solutions will have the information needed to follow up with you.
+        </p>
+
+        <div className="mt-8 space-y-4 text-sm text-sky-50">
+          <p>
+            <span className="font-semibold text-white">Service Area:</span>{" "}
+            Tulare & Kern Counties
           </p>
 
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Let&apos;s keep your home comfortable.
-          </h2>
-
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            Whether you need a repair, maintenance, or a new HVAC system,
-            Maxx Cooling Solutions is here to help keep your home comfortable.
+          <p>
+            <span className="font-semibold text-white">Owner:</span>{" "}
+            Max Bracamontes
           </p>
+        </div>
+      </div>
 
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <a
-              href="#contact"
-              className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-sky-600 shadow-lg transition hover:bg-slate-100"
-            >
-              Request Service
-            </a>
+      {/* Service Request Form */}
+{submitted ? (
+  <div className="rounded-3xl bg-white p-8 text-center shadow-2xl">
+    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sky-100 text-3xl text-sky-600">
+      ✓
+    </div>
 
-            <a
-              href="#"
-              className="rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-white/10"
+    <h3 className="mt-6 text-2xl font-bold text-slate-900">
+      Request Received
+    </h3>
+
+    <p className="mt-3 text-slate-600">
+      Thank you for reaching out to Maxx Cooling Solutions. We have received
+      your service request and will follow up using your preferred contact
+      method.
+    </p>
+
+    <button
+      type="button"
+      onClick={() => setSubmitted(false)}
+      className="mt-6 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-sky-400"
+    >
+      Submit Another Request
+    </button>
+  </div>
+) : (
+  <form
+    onSubmit={(event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(true);
+    }}
+    className="rounded-3xl bg-white p-8 shadow-2xl"
+  >
+        <div className="grid gap-6 sm:grid-cols-2">
+          
+          {/* Name */}
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-semibold text-slate-900"
             >
-              Request Service
-            </a>
+              Name
+            </label>
+
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              placeholder="Your name"
+              className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            />
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm font-semibold text-slate-900"
+            >
+              Phone
+            </label>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              required
+              placeholder="(555) 555-5555"
+              className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-slate-900"
+            >
+              Email
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            />
+          </div>
+
+          {/* Service */}
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="service"
+              className="block text-sm font-semibold text-slate-900"
+            >
+              Service Needed
+            </label>
+
+            <select
+              id="service"
+              name="service"
+              required
+              defaultValue=""
+              className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            >
+              <option value="" disabled>
+                Select a service
+              </option>
+              <option value="AC Repair & Service">
+                AC Repair & Service
+              </option>
+              <option value="Heating & Furnace Service">
+                Heating & Furnace Service
+              </option>
+              <option value="HVAC Installation">
+                HVAC Installation
+              </option>
+              <option value="HVAC Maintenance">
+                HVAC Maintenance
+              </option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          {/* Message */}
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="message"
+              className="block text-sm font-semibold text-slate-900"
+            >
+              Tell us about the issue
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              required
+              placeholder="Describe what is happening with your HVAC system..."
+              className="mt-2 w-full resize-none rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            />
+          </div>
+
+          {/* Preferred Contact */}
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="contact-method"
+              className="block text-sm font-semibold text-slate-900"
+            >
+              Preferred Contact Method
+            </label>
+
+            <select
+              id="contact-method"
+              name="contact-method"
+              required
+              defaultValue=""
+              className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            >
+              <option value="" disabled>
+                Select one
+              </option>
+              <option value="Phone">Phone</option>
+              <option value="Text">Text</option>
+              <option value="Email">Email</option>
+            </select>
           </div>
         </div>
-      </section>
+
+        <button
+          type="submit"
+          className="mt-8 w-full rounded-full bg-sky-500 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-400"
+        >
+          Submit Service Request
+        </button>
+
+        <p className="mt-4 text-center text-xs leading-5 text-slate-400">
+          This form is currently a demonstration. Submission will be connected
+          to the company&apos;s preferred contact method later.
+        </p>
+      </form>
+)}
+    </div>
+  </div>
+</section>
 
       {/* Footer */}
       <footer className="bg-slate-950 py-12 text-slate-400">
